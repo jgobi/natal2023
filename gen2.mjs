@@ -49,6 +49,6 @@ objs.forEach((v) => {
   console.log(
     v.nome,
     ":",
-    "http://jgobi.github.io/natal2023/" + v.id + ".html"
+    "https://jgobi.github.io/natal2023/" + v.id + ".html"
   );
 });
