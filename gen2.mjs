@@ -1,6 +1,13 @@
 import { randomUUID } from "crypto";
 import ejs from "ejs";
-import { mkdirSync, readFileSync, rmSync, unlinkSync, writeFileSync } from "fs";
+import {
+  cpSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  unlinkSync,
+  writeFileSync,
+} from "fs";
 
 const template = ejs.compile(
   readFileSync("./template.ejs", { encoding: "utf-8" }),
@@ -26,11 +33,12 @@ const objs = lista.map((v, i) => ({
   id: randomUUID(),
 }));
 
-rmSync("./amigo", { recursive: true });
-mkdirSync("./amigo", { recursive: true });
+rmSync("./docs", { recursive: true });
+mkdirSync("./docs", { recursive: true });
+cpSync("./index.html", "./docs/index.html");
 
 objs.forEach((v) => {
-  writeFileSync("./amigo/" + v.id + ".html", template(v));
+  writeFileSync("./docs/" + v.id + ".html", template(v));
 });
 
 console.log("Concluído, por favor envie os seguintes links para as pessoas:\n");
@@ -41,6 +49,6 @@ objs.forEach((v) => {
   console.log(
     v.nome,
     ":",
-    "http://jgobi.github.io/natal2023/amigo/" + v.id + ".html"
+    "http://jgobi.github.io/natal2023/" + v.id + ".html"
   );
 });
